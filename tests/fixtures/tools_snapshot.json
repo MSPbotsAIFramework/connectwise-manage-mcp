@@ -1,0 +1,970 @@
+{
+ "cw_add_adjustment_detail": {
+  "params": [
+   "adjustmentId",
+   "catalogItemId",
+   "description",
+   "quantityAdjusted",
+   "serialNumbers",
+   "unitCost",
+   "warehouseBinId",
+   "warehouseId"
+  ],
+  "required": [
+   "adjustmentId",
+   "catalogItemId",
+   "quantityAdjusted",
+   "warehouseBinId",
+   "warehouseId"
+  ]
+ },
+ "cw_add_contact_communication": {
+  "params": [
+   "communicationType",
+   "defaultFlag",
+   "extension",
+   "id",
+   "typeName",
+   "value"
+  ],
+  "required": [
+   "communicationType",
+   "id",
+   "typeName",
+   "value"
+  ]
+ },
+ "cw_add_project_ticket_note": {
+  "params": [
+   "detailDescriptionFlag",
+   "id",
+   "internalAnalysisFlag",
+   "resolutionFlag",
+   "text"
+  ],
+  "required": [
+   "id",
+   "text"
+  ]
+ },
+ "cw_add_ticket_note": {
+  "params": [
+   "customerUpdatedFlag",
+   "detailDescriptionFlag",
+   "emailCc",
+   "emailCcFlag",
+   "emailContactFlag",
+   "emailResourceFlag",
+   "id",
+   "internalAnalysisFlag",
+   "processNotifications",
+   "resolutionFlag",
+   "text"
+  ],
+  "required": [
+   "id",
+   "text"
+  ]
+ },
+ "cw_close_adjustment": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_create_activity": {
+  "params": [
+   "companyId",
+   "contactId",
+   "dateEnd",
+   "dateStart",
+   "memberId",
+   "name",
+   "notes",
+   "typeId"
+  ],
+  "required": [
+   "name"
+  ]
+ },
+ "cw_create_adjustment": {
+  "params": [
+   "identifier",
+   "notes",
+   "reason",
+   "typeId"
+  ],
+  "required": [
+   "identifier",
+   "typeId"
+  ]
+ },
+ "cw_create_agreement_addition": {
+  "params": [
+   "agreementId",
+   "billCustomer",
+   "cancelledDate",
+   "description",
+   "effectiveDate",
+   "invoiceDescription",
+   "productId",
+   "quantity",
+   "taxableFlag",
+   "unitCost",
+   "unitPrice",
+   "uom"
+  ],
+  "required": [
+   "agreementId",
+   "billCustomer",
+   "productId"
+  ]
+ },
+ "cw_create_catalog_item": {
+  "params": [
+   "categoryId",
+   "cost",
+   "customerDescription",
+   "description",
+   "extraFields",
+   "identifier",
+   "manufacturerId",
+   "price",
+   "productClass",
+   "subcategoryId",
+   "taxableFlag",
+   "typeId"
+  ],
+  "required": [
+   "description",
+   "identifier",
+   "subcategoryId",
+   "typeId"
+  ]
+ },
+ "cw_create_company": {
+  "params": [
+   "addressLine1",
+   "city",
+   "country",
+   "identifier",
+   "name",
+   "phoneNumber",
+   "siteName",
+   "state",
+   "statusId",
+   "typeIds",
+   "website",
+   "zip"
+  ],
+  "required": [
+   "identifier",
+   "name"
+  ]
+ },
+ "cw_create_contact": {
+  "params": [
+   "addressLine1",
+   "addressLine2",
+   "city",
+   "communicationItems",
+   "companyId",
+   "departmentId",
+   "email",
+   "firstName",
+   "lastName",
+   "managerContactId",
+   "phone",
+   "siteId",
+   "state",
+   "title",
+   "typeIds",
+   "zip"
+  ],
+  "required": [
+   "companyId",
+   "firstName",
+   "lastName"
+  ]
+ },
+ "cw_create_project": {
+  "params": [
+   "boardId",
+   "companyId",
+   "description",
+   "estimatedEnd",
+   "estimatedStart",
+   "managerId",
+   "name"
+  ],
+  "required": [
+   "boardId",
+   "companyId",
+   "name"
+  ]
+ },
+ "cw_create_schedule_entry": {
+  "params": [
+   "acknowledgedFlag",
+   "allowScheduleConflictsFlag",
+   "dateEnd",
+   "dateStart",
+   "doneFlag",
+   "hours",
+   "memberId",
+   "name",
+   "objectId",
+   "ownerFlag",
+   "reminderId",
+   "spanId",
+   "statusId",
+   "typeId",
+   "whereId"
+  ],
+  "required": [
+   "dateEnd",
+   "dateStart",
+   "memberId",
+   "objectId",
+   "typeId"
+  ]
+ },
+ "cw_create_ticket": {
+  "params": [
+   "boardId",
+   "companyId",
+   "contactId",
+   "initialDescription",
+   "parentTicketId",
+   "priorityId",
+   "statusId",
+   "subTypeId",
+   "summary",
+   "typeId"
+  ],
+  "required": [
+   "summary"
+  ]
+ },
+ "cw_create_time_entry": {
+  "params": [
+   "actualHours",
+   "chargeToId",
+   "chargeToType",
+   "internalNotes",
+   "memberId",
+   "notes",
+   "timeEnd",
+   "timeStart",
+   "workRoleId",
+   "workTypeId"
+  ],
+  "required": [
+   "chargeToId",
+   "chargeToType",
+   "memberId",
+   "timeStart"
+  ]
+ },
+ "cw_delete_time_entry": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_activity": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_adjustment": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_agreement": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_agreement_additions": {
+  "params": [
+   "agreementId",
+   "conditions",
+   "page",
+   "pageSize"
+  ],
+  "required": [
+   "agreementId"
+  ]
+ },
+ "cw_get_agreement_recap": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_catalog_item": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_company": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_configuration": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_contact": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_inventory_on_hand": {
+  "params": [
+   "binIds",
+   "catalogItemId",
+   "includeCosts",
+   "includeInactiveBins",
+   "includeSerialNumbers",
+   "warehouseId"
+  ],
+  "required": []
+ },
+ "cw_get_invoice": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_member": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_opportunity": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_procurement_product": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_project": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_project_ticket": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_project_ticket_notes": {
+  "params": [
+   "id",
+   "page",
+   "pageSize"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_purchase_order": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_purchase_order_items": {
+  "params": [
+   "conditions",
+   "orderBy",
+   "page",
+   "pageSize",
+   "purchaseOrderId"
+  ],
+  "required": [
+   "purchaseOrderId"
+  ]
+ },
+ "cw_get_sales_order": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_sales_order_products": {
+  "params": [
+   "conditions",
+   "orderBy",
+   "page",
+   "pageSize",
+   "salesOrderId"
+  ],
+  "required": [
+   "salesOrderId"
+  ]
+ },
+ "cw_get_ticket": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_ticket_configurations": {
+  "params": [
+   "conditions",
+   "id",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_ticket_notes": {
+  "params": [
+   "id",
+   "page",
+   "pageSize"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_get_time_entry": {
+  "params": [
+   "id"
+  ],
+  "required": [
+   "id"
+  ]
+ },
+ "cw_list_adjustment_types": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_list_boards": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_list_catalog_categories": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_list_catalog_subcategories": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_list_contact_types": {
+  "params": [
+   "conditions",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_list_manufacturers": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_list_priorities": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_list_schedule_statuses": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_list_schedule_types": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_list_sites": {
+  "params": [
+   "companyId",
+   "conditions",
+   "page",
+   "pageSize"
+  ],
+  "required": [
+   "companyId"
+  ]
+ },
+ "cw_list_statuses": {
+  "params": [
+   "boardId",
+   "conditions",
+   "page",
+   "pageSize"
+  ],
+  "required": [
+   "boardId"
+  ]
+ },
+ "cw_list_warehouse_bins": {
+  "params": [
+   "conditions",
+   "orderBy",
+   "page",
+   "pageSize",
+   "warehouseId"
+  ],
+  "required": []
+ },
+ "cw_list_warehouses": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_activities": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_agreement_recaps": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_agreements": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_catalog_items": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_companies": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_configurations": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_contacts": {
+  "params": [
+   "childConditions",
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize",
+   "typeId",
+   "typeName"
+  ],
+  "required": []
+ },
+ "cw_search_invoices": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_members": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_opportunities": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_opportunity_forecasts": {
+  "params": [
+   "opportunityId",
+   "page",
+   "pageSize"
+  ],
+  "required": [
+   "opportunityId"
+  ]
+ },
+ "cw_search_opportunity_notes": {
+  "params": [
+   "opportunityId",
+   "page",
+   "pageSize"
+  ],
+  "required": [
+   "opportunityId"
+  ]
+ },
+ "cw_search_procurement_products": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_project_tickets": {
+  "params": [
+   "conditions",
+   "orderBy",
+   "page",
+   "pageSize",
+   "projectId"
+  ],
+  "required": []
+ },
+ "cw_search_projects": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_purchase_orders": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_sales_orders": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_sales_stages": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_schedule_entries": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_tickets": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_search_time_entries": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_test_connection": {
+  "params": [],
+  "required": []
+ },
+ "cw_update_agreement_addition": {
+  "params": [
+   "additionId",
+   "agreementId",
+   "dryRun",
+   "operations"
+  ],
+  "required": [
+   "additionId",
+   "agreementId",
+   "operations"
+  ]
+ },
+ "cw_update_catalog_item": {
+  "params": [
+   "id",
+   "operations"
+  ],
+  "required": [
+   "id",
+   "operations"
+  ]
+ },
+ "cw_update_company": {
+  "params": [
+   "id",
+   "operations"
+  ],
+  "required": [
+   "id",
+   "operations"
+  ]
+ },
+ "cw_update_contact": {
+  "params": [
+   "id",
+   "operations"
+  ],
+  "required": [
+   "id",
+   "operations"
+  ]
+ },
+ "cw_update_contact_communication": {
+  "params": [
+   "communicationId",
+   "communicationType",
+   "defaultFlag",
+   "extension",
+   "id",
+   "typeName",
+   "value"
+  ],
+  "required": [
+   "communicationId",
+   "id"
+  ]
+ },
+ "cw_update_contact_types": {
+  "params": [
+   "action",
+   "associationId",
+   "id",
+   "typeId",
+   "typeName"
+  ],
+  "required": [
+   "action",
+   "id"
+  ]
+ },
+ "cw_update_invoice": {
+  "params": [
+   "dryRun",
+   "id",
+   "operations"
+  ],
+  "required": [
+   "id",
+   "operations"
+  ]
+ },
+ "cw_update_schedule_entry": {
+  "params": [
+   "id",
+   "operations"
+  ],
+  "required": [
+   "id",
+   "operations"
+  ]
+ },
+ "cw_update_ticket": {
+  "params": [
+   "id",
+   "operations"
+  ],
+  "required": [
+   "id",
+   "operations"
+  ]
+ },
+ "cw_update_ticket_configurations": {
+  "params": [
+   "id",
+   "operations"
+  ],
+  "required": [
+   "id",
+   "operations"
+  ]
+ },
+ "cw_update_time_entry": {
+  "params": [
+   "id",
+   "operations"
+  ],
+  "required": [
+   "id",
+   "operations"
+  ]
+ }
+}

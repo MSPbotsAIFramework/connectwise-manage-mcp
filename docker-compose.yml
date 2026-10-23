@@ -1,0 +1,6 @@
+services:
+  connectwise-manage-mcp:
+    build: .
+    image: connectwise-manage-mcp:local
+    ports:
+      - "8080:8080"

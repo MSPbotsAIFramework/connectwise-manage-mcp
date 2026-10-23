@@ -1,0 +1,2738 @@
+[
+ {
+  "name": "cw_get_ticket_configurations",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "integer",
+     "exclusiveMinimum": 0,
+     "maximum": 9007199254740991
+    },
+    "page": {
+     "type": "integer",
+     "exclusiveMinimum": 0,
+     "maximum": 9007199254740991
+    },
+    "pageSize": {
+     "type": "integer",
+     "exclusiveMinimum": 0,
+     "maximum": 1000
+    },
+    "conditions": {
+     "type": "string"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_update_ticket_configurations",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "integer",
+     "exclusiveMinimum": 0,
+     "maximum": 9007199254740991
+    },
+    "operations": {
+     "minItems": 1,
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "action": {
+        "type": "string",
+        "enum": [
+         "add",
+         "remove"
+        ]
+       },
+       "configurationId": {
+        "type": "integer",
+        "exclusiveMinimum": 0,
+        "maximum": 9007199254740991
+       }
+      },
+      "required": [
+       "action",
+       "configurationId"
+      ]
+     }
+    }
+   },
+   "required": [
+    "id",
+    "operations"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_tickets",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_ticket",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  },
+  "_meta": {
+   "ui/resourceUri": "ui://connectwise-manage/ticket-card.html",
+   "ui": {
+    "resourceUri": "ui://connectwise-manage/ticket-card.html"
+   }
+  }
+ },
+ {
+  "name": "cw_create_ticket",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "summary": {
+     "type": "string"
+    },
+    "boardId": {
+     "type": "number"
+    },
+    "companyId": {
+     "type": "number"
+    },
+    "contactId": {
+     "type": "number"
+    },
+    "statusId": {
+     "type": "number"
+    },
+    "priorityId": {
+     "type": "number"
+    },
+    "typeId": {
+     "type": "number"
+    },
+    "subTypeId": {
+     "type": "number"
+    },
+    "initialDescription": {
+     "type": "string"
+    },
+    "parentTicketId": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "summary"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_update_ticket",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    },
+    "operations": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "op": {
+        "type": "string",
+        "enum": [
+         "replace",
+         "add",
+         "remove"
+        ]
+       },
+       "path": {
+        "type": "string"
+       },
+       "value": {}
+      },
+      "required": [
+       "op",
+       "path"
+      ]
+     }
+    }
+   },
+   "required": [
+    "id",
+    "operations"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_ticket_notes",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_add_ticket_note",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    },
+    "text": {
+     "type": "string"
+    },
+    "detailDescriptionFlag": {
+     "type": "boolean"
+    },
+    "internalAnalysisFlag": {
+     "type": "boolean"
+    },
+    "resolutionFlag": {
+     "type": "boolean"
+    },
+    "customerUpdatedFlag": {
+     "type": "boolean"
+    },
+    "emailContactFlag": {
+     "type": "boolean"
+    },
+    "emailResourceFlag": {
+     "type": "boolean"
+    },
+    "emailCcFlag": {
+     "type": "boolean"
+    },
+    "emailCc": {
+     "type": "string"
+    },
+    "processNotifications": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "id",
+    "text"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  },
+  "_meta": {
+   "ui/resourceUri": "ui://connectwise-manage/ticket-card.html",
+   "ui": {
+    "resourceUri": "ui://connectwise-manage/ticket-card.html"
+   }
+  }
+ },
+ {
+  "name": "cw_search_companies",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_company",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_list_sites",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "companyId": {
+     "type": "number"
+    },
+    "conditions": {
+     "type": "string"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "companyId"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_create_company",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "identifier": {
+     "type": "string"
+    },
+    "typeIds": {
+     "type": "array",
+     "items": {
+      "type": "number"
+     }
+    },
+    "statusId": {
+     "type": "number"
+    },
+    "addressLine1": {
+     "type": "string"
+    },
+    "city": {
+     "type": "string"
+    },
+    "state": {
+     "type": "string"
+    },
+    "zip": {
+     "type": "string"
+    },
+    "country": {
+     "type": "string"
+    },
+    "phoneNumber": {
+     "type": "string"
+    },
+    "website": {
+     "type": "string"
+    },
+    "siteName": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "name",
+    "identifier"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_update_company",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    },
+    "operations": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "op": {
+        "type": "string",
+        "enum": [
+         "replace",
+         "add",
+         "remove"
+        ]
+       },
+       "path": {
+        "type": "string"
+       },
+       "value": {}
+      },
+      "required": [
+       "op",
+       "path"
+      ]
+     }
+    }
+   },
+   "required": [
+    "id",
+    "operations"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_contacts",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "childConditions": {
+     "type": "string"
+    },
+    "typeName": {
+     "type": "string"
+    },
+    "typeId": {
+     "type": "number"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_contact",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_create_contact",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "firstName": {
+     "type": "string"
+    },
+    "lastName": {
+     "type": "string"
+    },
+    "companyId": {
+     "type": "number"
+    },
+    "email": {
+     "type": "string"
+    },
+    "phone": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "siteId": {
+     "type": "number"
+    },
+    "addressLine1": {
+     "type": "string"
+    },
+    "addressLine2": {
+     "type": "string"
+    },
+    "city": {
+     "type": "string"
+    },
+    "state": {
+     "type": "string"
+    },
+    "zip": {
+     "type": "string"
+    },
+    "departmentId": {
+     "type": "number"
+    },
+    "managerContactId": {
+     "type": "number"
+    },
+    "typeIds": {
+     "type": "array",
+     "items": {
+      "type": "number"
+     }
+    },
+    "communicationItems": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "communicationType": {
+        "type": "string",
+        "enum": [
+         "Phone",
+         "Email",
+         "Fax"
+        ]
+       },
+       "typeName": {
+        "type": "string"
+       },
+       "value": {
+        "type": "string"
+       },
+       "extension": {
+        "type": "string"
+       },
+       "defaultFlag": {
+        "type": "boolean"
+       }
+      },
+      "required": [
+       "communicationType",
+       "typeName",
+       "value"
+      ]
+     }
+    }
+   },
+   "required": [
+    "firstName",
+    "lastName",
+    "companyId"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_add_contact_communication",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    },
+    "communicationType": {
+     "type": "string",
+     "enum": [
+      "Phone",
+      "Email",
+      "Fax"
+     ]
+    },
+    "typeName": {
+     "type": "string"
+    },
+    "value": {
+     "type": "string"
+    },
+    "extension": {
+     "type": "string"
+    },
+    "defaultFlag": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "id",
+    "communicationType",
+    "typeName",
+    "value"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_update_contact_communication",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    },
+    "communicationId": {
+     "type": "number"
+    },
+    "communicationType": {
+     "type": "string",
+     "enum": [
+      "Phone",
+      "Email",
+      "Fax"
+     ]
+    },
+    "typeName": {
+     "type": "string"
+    },
+    "value": {
+     "type": "string"
+    },
+    "extension": {
+     "type": "string"
+    },
+    "defaultFlag": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "id",
+    "communicationId"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_list_contact_types",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_update_contact",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    },
+    "operations": {
+     "type": "array",
+     "items": {
+      "oneOf": [
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "add"
+         },
+         "path": {
+          "type": "string"
+         },
+         "value": {}
+        },
+        "required": [
+         "op",
+         "path",
+         "value"
+        ]
+       },
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "replace"
+         },
+         "path": {
+          "type": "string"
+         },
+         "value": {}
+        },
+        "required": [
+         "op",
+         "path",
+         "value"
+        ]
+       },
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "remove"
+         },
+         "path": {
+          "type": "string"
+         },
+         "value": {}
+        },
+        "required": [
+         "op",
+         "path"
+        ]
+       }
+      ]
+     }
+    }
+   },
+   "required": [
+    "id",
+    "operations"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_update_contact_types",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    },
+    "action": {
+     "type": "string",
+     "enum": [
+      "add",
+      "remove"
+     ]
+    },
+    "typeName": {
+     "type": "string"
+    },
+    "typeId": {
+     "type": "number"
+    },
+    "associationId": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id",
+    "action"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_projects",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_project",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_project_tickets",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "projectId": {
+     "type": "number"
+    },
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_project_ticket",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_project_ticket_notes",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_add_project_ticket_note",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    },
+    "text": {
+     "type": "string"
+    },
+    "detailDescriptionFlag": {
+     "type": "boolean"
+    },
+    "internalAnalysisFlag": {
+     "type": "boolean"
+    },
+    "resolutionFlag": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "id",
+    "text"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_create_project",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "boardId": {
+     "type": "number"
+    },
+    "companyId": {
+     "type": "number"
+    },
+    "estimatedStart": {
+     "type": "string"
+    },
+    "estimatedEnd": {
+     "type": "string"
+    },
+    "managerId": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "name",
+    "boardId",
+    "companyId"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_time_entries",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_time_entry",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_create_time_entry",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "chargeToType": {
+     "type": "string",
+     "enum": [
+      "ServiceTicket",
+      "ProjectTicket",
+      "ChargeCode",
+      "Activity"
+     ]
+    },
+    "chargeToId": {
+     "type": "number"
+    },
+    "memberId": {
+     "type": "number"
+    },
+    "timeStart": {
+     "type": "string"
+    },
+    "timeEnd": {
+     "type": "string"
+    },
+    "actualHours": {
+     "type": "number"
+    },
+    "notes": {
+     "type": "string"
+    },
+    "internalNotes": {
+     "type": "string"
+    },
+    "workTypeId": {
+     "type": "number"
+    },
+    "workRoleId": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "chargeToType",
+    "chargeToId",
+    "memberId",
+    "timeStart"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_update_time_entry",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    },
+    "operations": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "op": {
+        "type": "string",
+        "enum": [
+         "replace",
+         "add",
+         "remove"
+        ]
+       },
+       "path": {
+        "type": "string"
+       },
+       "value": {}
+      },
+      "required": [
+       "op",
+       "path"
+      ]
+     }
+    }
+   },
+   "required": [
+    "id",
+    "operations"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_delete_time_entry",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_schedule_entries",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "annotations": {
+   "readOnlyHint": true
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_list_schedule_types",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   }
+  },
+  "annotations": {
+   "readOnlyHint": true
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_list_schedule_statuses",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   }
+  },
+  "annotations": {
+   "readOnlyHint": true
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_create_schedule_entry",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "objectId": {
+     "type": "number"
+    },
+    "typeId": {
+     "type": "number"
+    },
+    "memberId": {
+     "type": "number"
+    },
+    "dateStart": {
+     "type": "string"
+    },
+    "dateEnd": {
+     "type": "string"
+    },
+    "statusId": {
+     "type": "number"
+    },
+    "reminderId": {
+     "type": "number"
+    },
+    "whereId": {
+     "type": "number"
+    },
+    "spanId": {
+     "type": "number"
+    },
+    "name": {
+     "type": "string"
+    },
+    "hours": {
+     "type": "number"
+    },
+    "doneFlag": {
+     "type": "boolean"
+    },
+    "ownerFlag": {
+     "type": "boolean"
+    },
+    "acknowledgedFlag": {
+     "type": "boolean"
+    },
+    "allowScheduleConflictsFlag": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "objectId",
+    "typeId",
+    "memberId",
+    "dateStart",
+    "dateEnd"
+   ]
+  },
+  "annotations": {
+   "readOnlyHint": false,
+   "destructiveHint": false
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_update_schedule_entry",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    },
+    "operations": {
+     "type": "array",
+     "items": {
+      "oneOf": [
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "add"
+         },
+         "path": {
+          "type": "string"
+         },
+         "value": {}
+        },
+        "required": [
+         "op",
+         "path",
+         "value"
+        ]
+       },
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "replace"
+         },
+         "path": {
+          "type": "string"
+         },
+         "value": {}
+        },
+        "required": [
+         "op",
+         "path",
+         "value"
+        ]
+       },
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "remove"
+         },
+         "path": {
+          "type": "string"
+         },
+         "value": {}
+        },
+        "required": [
+         "op",
+         "path"
+        ]
+       }
+      ]
+     }
+    }
+   },
+   "required": [
+    "id",
+    "operations"
+   ]
+  },
+  "annotations": {
+   "readOnlyHint": false,
+   "destructiveHint": true
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_members",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_member",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_configurations",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_configuration",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_list_boards",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_list_priorities",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_list_statuses",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "boardId": {
+     "type": "number"
+    },
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "boardId"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_activities",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_activity",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_create_activity",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "typeId": {
+     "type": "number"
+    },
+    "companyId": {
+     "type": "number"
+    },
+    "contactId": {
+     "type": "number"
+    },
+    "memberId": {
+     "type": "number"
+    },
+    "notes": {
+     "type": "string"
+    },
+    "dateStart": {
+     "type": "string"
+    },
+    "dateEnd": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "name"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_catalog_items",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_catalog_item",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_create_catalog_item",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "identifier": {
+     "type": "string"
+    },
+    "subcategoryId": {
+     "type": "number"
+    },
+    "typeId": {
+     "type": "number"
+    },
+    "cost": {
+     "type": "number"
+    },
+    "price": {
+     "type": "number"
+    },
+    "categoryId": {
+     "type": "number"
+    },
+    "manufacturerId": {
+     "type": "number"
+    },
+    "productClass": {
+     "type": "string",
+     "enum": [
+      "NonInventory",
+      "Inventory",
+      "Bundle",
+      "Service",
+      "Agreement"
+     ]
+    },
+    "taxableFlag": {
+     "type": "boolean"
+    },
+    "customerDescription": {
+     "type": "string"
+    },
+    "extraFields": {
+     "type": "object",
+     "propertyNames": {
+      "type": "string"
+     },
+     "additionalProperties": {}
+    }
+   },
+   "required": [
+    "identifier",
+    "description",
+    "subcategoryId",
+    "typeId"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_update_catalog_item",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    },
+    "operations": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "op": {
+        "type": "string",
+        "enum": [
+         "replace",
+         "add",
+         "remove"
+        ]
+       },
+       "path": {
+        "type": "string"
+       },
+       "value": {}
+      },
+      "required": [
+       "op",
+       "path"
+      ]
+     }
+    }
+   },
+   "required": [
+    "id",
+    "operations"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_list_catalog_categories",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_list_catalog_subcategories",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_list_manufacturers",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_list_warehouses",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_list_warehouse_bins",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "warehouseId": {
+     "type": "number"
+    },
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_inventory_on_hand",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "warehouseId": {
+     "type": "number"
+    },
+    "binIds": {
+     "type": "array",
+     "items": {
+      "type": "number"
+     }
+    },
+    "catalogItemId": {
+     "type": "number"
+    },
+    "includeInactiveBins": {
+     "type": "boolean"
+    },
+    "includeSerialNumbers": {
+     "type": "boolean"
+    },
+    "includeCosts": {
+     "type": "boolean"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_list_adjustment_types",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_create_adjustment",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "identifier": {
+     "type": "string",
+     "maxLength": 50
+    },
+    "typeId": {
+     "type": "number"
+    },
+    "reason": {
+     "type": "string",
+     "maxLength": 100
+    },
+    "notes": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "identifier",
+    "typeId"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_add_adjustment_detail",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "adjustmentId": {
+     "type": "number"
+    },
+    "catalogItemId": {
+     "type": "number"
+    },
+    "warehouseId": {
+     "type": "number"
+    },
+    "warehouseBinId": {
+     "type": "number"
+    },
+    "quantityAdjusted": {
+     "type": "integer",
+     "minimum": -9007199254740991,
+     "maximum": 9007199254740991
+    },
+    "unitCost": {
+     "type": "number"
+    },
+    "serialNumbers": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "adjustmentId",
+    "catalogItemId",
+    "warehouseId",
+    "warehouseBinId",
+    "quantityAdjusted"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_adjustment",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_close_adjustment",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_test_connection",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {}
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_agreements",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_agreement",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_agreement_additions",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "agreementId": {
+     "type": "number"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "agreementId"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_agreement_recaps",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_agreement_recap",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_update_agreement_addition",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "agreementId": {
+     "type": "number"
+    },
+    "additionId": {
+     "type": "number"
+    },
+    "operations": {
+     "type": "array",
+     "items": {
+      "oneOf": [
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "add"
+         },
+         "path": {
+          "type": "string"
+         },
+         "value": {}
+        },
+        "required": [
+         "op",
+         "path",
+         "value"
+        ]
+       },
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "replace"
+         },
+         "path": {
+          "type": "string"
+         },
+         "value": {}
+        },
+        "required": [
+         "op",
+         "path",
+         "value"
+        ]
+       },
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "remove"
+         },
+         "path": {
+          "type": "string"
+         },
+         "value": {}
+        },
+        "required": [
+         "op",
+         "path"
+        ]
+       }
+      ]
+     }
+    },
+    "dryRun": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "agreementId",
+    "additionId",
+    "operations"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_create_agreement_addition",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "agreementId": {
+     "type": "number"
+    },
+    "productId": {
+     "type": "number"
+    },
+    "billCustomer": {
+     "type": "string",
+     "enum": [
+      "Billable",
+      "DoNotBill",
+      "NoCharge"
+     ]
+    },
+    "quantity": {
+     "type": "number"
+    },
+    "invoiceDescription": {
+     "type": "string"
+    },
+    "effectiveDate": {
+     "type": "string"
+    },
+    "cancelledDate": {
+     "type": "string"
+    },
+    "unitPrice": {
+     "type": "number"
+    },
+    "unitCost": {
+     "type": "number"
+    },
+    "taxableFlag": {
+     "type": "boolean"
+    },
+    "uom": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "agreementId",
+    "productId",
+    "billCustomer"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_invoices",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_invoice",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_update_invoice",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "integer",
+     "exclusiveMinimum": 0,
+     "maximum": 9007199254740991
+    },
+    "operations": {
+     "minItems": 1,
+     "type": "array",
+     "items": {
+      "oneOf": [
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "replace"
+         },
+         "path": {
+          "type": "string"
+         },
+         "value": {}
+        },
+        "required": [
+         "op",
+         "path",
+         "value"
+        ]
+       },
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "add"
+         },
+         "path": {
+          "type": "string"
+         },
+         "value": {}
+        },
+        "required": [
+         "op",
+         "path",
+         "value"
+        ]
+       },
+       {
+        "type": "object",
+        "properties": {
+         "op": {
+          "type": "string",
+          "const": "remove"
+         },
+         "path": {
+          "type": "string"
+         },
+         "value": {}
+        },
+        "required": [
+         "op",
+         "path"
+        ]
+       }
+      ]
+     }
+    },
+    "dryRun": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "id",
+    "operations"
+   ]
+  },
+  "annotations": {
+   "readOnlyHint": false,
+   "destructiveHint": true
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_opportunities",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_opportunity",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_opportunity_forecasts",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "opportunityId": {
+     "type": "number"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "opportunityId"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_opportunity_notes",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "opportunityId": {
+     "type": "number"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "opportunityId"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_sales_stages",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_purchase_orders",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_purchase_order",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_purchase_order_items",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "purchaseOrderId": {
+     "type": "number"
+    },
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "purchaseOrderId"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_procurement_products",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_procurement_product",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_search_sales_orders",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   }
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_sales_order",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "number"
+    }
+   },
+   "required": [
+    "id"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ },
+ {
+  "name": "cw_get_sales_order_products",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "salesOrderId": {
+     "type": "number"
+    },
+    "conditions": {
+     "type": "string"
+    },
+    "page": {
+     "type": "number"
+    },
+    "pageSize": {
+     "type": "number"
+    },
+    "orderBy": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "salesOrderId"
+   ]
+  },
+  "execution": {
+   "taskSupport": "forbidden"
+  }
+ }
+]
