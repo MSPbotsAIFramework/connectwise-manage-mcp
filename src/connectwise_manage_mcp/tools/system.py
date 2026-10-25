@@ -125,6 +125,102 @@ def register(mcp: FastMCP, settings: Settings) -> None:
 
         return await run(settings, handler)
 
+    # Ticket classification (type / subtype / item are configured per service board)
+    @mcp.tool(
+        name="cw_list_ticket_types",
+        description=(
+            "List ticket types configured on a service board. Use the IDs as typeId when creating or "
+            "updating tickets on that board."
+        ),
+        annotations=READ,
+        structured_output=False,
+    )
+    async def cw_list_ticket_types(
+        boardId: Annotated[int, Field(description="Service board ID")],
+        conditions: Annotated[str | None, Field(description="ConnectWise conditions query string")] = None,
+        page: Page = None,
+        pageSize: PageSize = None,
+    ) -> str:
+        number, size = paging(page, pageSize)
+
+        async def handler(client: CWClient):
+            params = {"conditions": join_conditions(conditions), "page": number, "pageSize": size}
+            rows, has_next = await client.get_page(f"/service/boards/{seg(boardId)}/types", params)
+            return list_result(rows, number, size, has_next)
+
+        return await run(settings, handler)
+
+    @mcp.tool(
+        name="cw_list_ticket_subtypes",
+        description=(
+            "List ticket subtypes on a service board. Pass typeId to get only the subtypes allowed for that "
+            "ticket type (from the board's type/subtype/item associations)."
+        ),
+        annotations=READ,
+        structured_output=False,
+    )
+    async def cw_list_ticket_subtypes(
+        boardId: Annotated[int, Field(description="Service board ID")],
+        typeId: Annotated[int | None, Field(description="Only subtypes associated with this ticket type")] = None,
+        conditions: Annotated[str | None, Field(description="ConnectWise conditions query string")] = None,
+        page: Page = None,
+        pageSize: PageSize = None,
+    ) -> str:
+        number, size = paging(page, pageSize)
+
+        async def handler(client: CWClient):
+            if typeId is not None:
+                return await _associated(client, boardId, "subType", typeId=typeId)
+            params = {"conditions": join_conditions(conditions), "page": number, "pageSize": size}
+            rows, has_next = await client.get_page(f"/service/boards/{seg(boardId)}/subtypes", params)
+            return list_result(rows, number, size, has_next)
+
+        return await run(settings, handler)
+
+    @mcp.tool(
+        name="cw_list_ticket_items",
+        description=(
+            "List ticket items on a service board. Pass typeId and/or subTypeId to get only the items allowed "
+            "for that type and subtype (from the board's type/subtype/item associations)."
+        ),
+        annotations=READ,
+        structured_output=False,
+    )
+    async def cw_list_ticket_items(
+        boardId: Annotated[int, Field(description="Service board ID")],
+        typeId: Annotated[int | None, Field(description="Only items associated with this ticket type")] = None,
+        subTypeId: Annotated[int | None, Field(description="Only items associated with this subtype")] = None,
+        conditions: Annotated[str | None, Field(description="ConnectWise conditions query string")] = None,
+        page: Page = None,
+        pageSize: PageSize = None,
+    ) -> str:
+        number, size = paging(page, pageSize)
+
+        async def handler(client: CWClient):
+            if typeId is not None or subTypeId is not None:
+                return await _associated(client, boardId, "item", typeId=typeId, subTypeId=subTypeId)
+            params = {"conditions": join_conditions(conditions), "page": number, "pageSize": size}
+            rows, has_next = await client.get_page(f"/service/boards/{seg(boardId)}/items", params)
+            return list_result(rows, number, size, has_next)
+
+        return await run(settings, handler)
+
+    # Time entry setup
+    add_search(
+        mcp,
+        settings,
+        name="cw_list_work_types",
+        description="List work types (workTypeId on time entries) in ConnectWise Manage.",
+        path="/time/workTypes",
+    )
+    add_search(
+        mcp,
+        settings,
+        name="cw_list_work_roles",
+        description="List work roles (workRoleId on time entries) in ConnectWise Manage.",
+        path="/time/workRoles",
+    )
+
     # Activities
     add_search(
         mcp,
@@ -174,3 +270,23 @@ def register(mcp: FastMCP, settings: Settings) -> None:
             return clean(await client.post("/sales/activities", payload))
 
         return await run(settings, handler)
+
+
+async def _associated(
+    client: CWClient, board_id: int, field: str, *, typeId: int | None = None, subTypeId: int | None = None
+) -> dict:
+    """Distinct subtypes or items allowed on a board for a type / subtype, read from its associations."""
+    conditions = join_conditions(
+        f"type/id = {int(typeId)}" if typeId is not None else None,
+        f"subType/id = {int(subTypeId)}" if subTypeId is not None else None,
+    )
+    rows = await client.get_all(
+        f"/service/boards/{seg(board_id)}/typeSubTypeItemAssociations", {"conditions": conditions}
+    )
+    seen: dict[int, dict] = {}
+    for row in rows:
+        value = row.get(field) if isinstance(row, dict) else None
+        if isinstance(value, dict) and value.get("id") is not None:
+            seen.setdefault(value["id"], {"id": value["id"], "name": value.get("name")})
+    items = sorted(seen.values(), key=lambda v: str(v.get("name") or ""))
+    return {"items": items, "count": len(items), "source": "typeSubTypeItemAssociations", "has_more": False}

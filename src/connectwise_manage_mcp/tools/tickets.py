@@ -112,8 +112,9 @@ def register(mcp: FastMCP, settings: Settings) -> None:
         name="cw_create_ticket",
         description=(
             "Create a new service ticket. Set parentTicketId to create it as a child of another ticket. "
-            "Look up board, status, priority and type IDs with cw_list_boards, cw_list_statuses and "
-            "cw_list_priorities."
+            "Look up board, status, priority and type IDs with cw_list_boards, cw_list_statuses, "
+            "cw_list_priorities and cw_list_ticket_types (subtypes and items: cw_list_ticket_subtypes, "
+            "cw_list_ticket_items)."
         ),
         annotations=CREATE,
         structured_output=False,
@@ -127,6 +128,7 @@ def register(mcp: FastMCP, settings: Settings) -> None:
         priorityId: Annotated[int | None, Field(description="Priority ID")] = None,
         typeId: Annotated[int | None, Field(description="Type ID")] = None,
         subTypeId: Annotated[int | None, Field(description="SubType ID")] = None,
+        itemId: Annotated[int | None, Field(description="Item ID (see cw_list_ticket_items)")] = None,
         initialDescription: Annotated[str | None, Field(description="Initial ticket description")] = None,
         parentTicketId: Annotated[
             int | None,
@@ -145,6 +147,7 @@ def register(mcp: FastMCP, settings: Settings) -> None:
                 priority=ref(priorityId),
                 type=ref(typeId),
                 subType=ref(subTypeId),
+                item=ref(itemId),
                 initialDescription=initialDescription,
                 parentTicketId=int(seg(parentTicketId)) if parentTicketId is not None else None,
             )

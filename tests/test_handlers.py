@@ -577,3 +577,93 @@ async def test_sales_order_products_scoped(call):
     route = respx.get(f"{BASE}/procurement/products").mock(return_value=httpx.Response(200, json=[]))
     await call("cw_get_sales_order_products", salesOrderId=6)
     assert params(route)["conditions"] == "salesOrder/id = 6"
+
+
+# ---- ticket classification and time entry billing (PRD-20969) ---------------
+
+
+@respx.mock
+async def test_list_ticket_types_by_board(call):
+    route = respx.get(f"{BASE}/service/boards/7/types").mock(
+        return_value=httpx.Response(200, json=[{"id": 3, "name": "Offboarding"}])
+    )
+    data = await call("cw_list_ticket_types", **{"boardId": 7})
+    assert data["items"] == [{"id": 3, "name": "Offboarding"}]
+    assert params(route)["page"] == "1"
+
+
+@respx.mock
+async def test_list_ticket_subtypes_without_type_reads_board_subtypes(call):
+    respx.get(f"{BASE}/service/boards/7/subtypes").mock(
+        return_value=httpx.Response(200, json=[{"id": 4, "name": "User"}])
+    )
+    data = await call("cw_list_ticket_subtypes", **{"boardId": 7})
+    assert data["items"] == [{"id": 4, "name": "User"}]
+
+
+@respx.mock
+async def test_list_ticket_subtypes_for_type_uses_associations(call):
+    route = respx.get(f"{BASE}/service/boards/7/typeSubTypeItemAssociations").mock(
+        return_value=httpx.Response(
+            200,
+            json=[
+                {"id": 1, "type": {"id": 3}, "subType": {"id": 5, "name": "Mailbox"}, "item": {"id": 9, "name": "A"}},
+                {"id": 2, "type": {"id": 3}, "subType": {"id": 4, "name": "Account"}, "item": {"id": 8, "name": "B"}},
+                {"id": 3, "type": {"id": 3}, "subType": {"id": 5, "name": "Mailbox"}, "item": {"id": 8, "name": "B"}},
+            ],
+        )
+    )
+    data = await call("cw_list_ticket_subtypes", **{"boardId": 7, "typeId": 3})
+    assert params(route)["conditions"] == "type/id = 3"
+    assert data["items"] == [{"id": 4, "name": "Account"}, {"id": 5, "name": "Mailbox"}]
+
+
+@respx.mock
+async def test_list_ticket_items_for_type_and_subtype(call):
+    route = respx.get(f"{BASE}/service/boards/7/typeSubTypeItemAssociations").mock(
+        return_value=httpx.Response(200, json=[{"id": 1, "item": {"id": 9, "name": "Disable"}}])
+    )
+    data = await call("cw_list_ticket_items", **{"boardId": 7, "typeId": 3, "subTypeId": 5})
+    assert params(route)["conditions"] == "(type/id = 3) and (subType/id = 5)"
+    assert data["items"] == [{"id": 9, "name": "Disable"}]
+
+
+@respx.mock
+async def test_list_work_types_and_roles(call):
+    respx.get(f"{BASE}/time/workTypes").mock(return_value=httpx.Response(200, json=[{"id": 1, "name": "Regular"}]))
+    respx.get(f"{BASE}/time/workRoles").mock(return_value=httpx.Response(200, json=[{"id": 2, "name": "Engineer"}]))
+    assert (await call("cw_list_work_types"))["items"] == [{"id": 1, "name": "Regular"}]
+    assert (await call("cw_list_work_roles"))["items"] == [{"id": 2, "name": "Engineer"}]
+
+
+@respx.mock
+async def test_create_time_entry_sends_billing_and_destination_flags(call):
+    route = respx.post(f"{BASE}/time/entries").mock(return_value=httpx.Response(201, json={"id": 11}))
+    await call(
+        "cw_create_time_entry",
+        **{
+            "chargeToType": "ServiceTicket",
+            "chargeToId": 100,
+            "memberId": 5,
+            "timeStart": "2026-10-25T01:00:00Z",
+            "actualHours": 0.5,
+            "notes": "Offboarded user",
+            "billableOption": "Billable",
+            "addToDetailDescriptionFlag": True,
+            "addToInternalAnalysisFlag": True,
+            "addToResolutionFlag": True,
+        },
+    )
+    payload = sent(route)
+    assert payload["billableOption"] == "Billable"
+    assert payload["addToDetailDescriptionFlag"] is True
+    assert payload["addToInternalAnalysisFlag"] is True
+    assert payload["addToResolutionFlag"] is True
+
+
+@respx.mock
+async def test_create_ticket_sets_item(call):
+    route = respx.post(f"{BASE}/service/tickets").mock(return_value=httpx.Response(201, json={"id": 1}))
+    await call("cw_create_ticket", **{"summary": "Offboard", "boardId": 7, "typeId": 3, "subTypeId": 5, "itemId": 9})
+    payload = sent(route)
+    assert payload["type"] == {"id": 3} and payload["subType"] == {"id": 5} and payload["item"] == {"id": 9}

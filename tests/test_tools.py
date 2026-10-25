@@ -48,8 +48,18 @@ def _resolve(schema: dict, prop: dict) -> dict:
     return prop
 
 
+# Tools added after the baseline. Additions are fine; removals are not.
+ADDED = {
+    "cw_list_ticket_types",
+    "cw_list_ticket_subtypes",
+    "cw_list_ticket_items",
+    "cw_list_work_types",
+    "cw_list_work_roles",
+}
+
+
 async def test_tool_names_match_baseline(mcp):
-    assert set(await _tools(mcp)) == set(BASELINE)
+    assert set(await _tools(mcp)) == set(BASELINE) | ADDED
     assert len(BASELINE) == 87
 
 

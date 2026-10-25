@@ -237,6 +237,7 @@
    "companyId",
    "contactId",
    "initialDescription",
+   "itemId",
    "parentTicketId",
    "priorityId",
    "statusId",
@@ -251,6 +252,10 @@
  "cw_create_time_entry": {
   "params": [
    "actualHours",
+   "addToDetailDescriptionFlag",
+   "addToInternalAnalysisFlag",
+   "addToResolutionFlag",
+   "billableOption",
    "chargeToId",
    "chargeToType",
    "internalNotes",
@@ -608,6 +613,42 @@
    "boardId"
   ]
  },
+ "cw_list_ticket_items": {
+  "params": [
+   "boardId",
+   "conditions",
+   "page",
+   "pageSize",
+   "subTypeId",
+   "typeId"
+  ],
+  "required": [
+   "boardId"
+  ]
+ },
+ "cw_list_ticket_subtypes": {
+  "params": [
+   "boardId",
+   "conditions",
+   "page",
+   "pageSize",
+   "typeId"
+  ],
+  "required": [
+   "boardId"
+  ]
+ },
+ "cw_list_ticket_types": {
+  "params": [
+   "boardId",
+   "conditions",
+   "page",
+   "pageSize"
+  ],
+  "required": [
+   "boardId"
+  ]
+ },
  "cw_list_warehouse_bins": {
   "params": [
    "conditions",
@@ -619,6 +660,26 @@
   "required": []
  },
  "cw_list_warehouses": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_list_work_roles": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
+ "cw_list_work_types": {
   "params": [
    "conditions",
    "fields",

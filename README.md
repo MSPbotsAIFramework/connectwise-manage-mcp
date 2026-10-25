@@ -105,11 +105,11 @@ reported by the tool as `invalid_argument`.
 | Area | Tools |
 |---|---|
 | Service tickets | `cw_search_tickets`, `cw_get_ticket`, `cw_create_ticket`, `cw_update_ticket`, `cw_get_ticket_notes`, `cw_add_ticket_note`, `cw_get_ticket_configurations`, `cw_update_ticket_configurations` |
-| Board setup | `cw_list_boards`, `cw_list_statuses`, `cw_list_priorities` |
+| Board setup | `cw_list_boards`, `cw_list_statuses`, `cw_list_priorities`, `cw_list_ticket_types`, `cw_list_ticket_subtypes`, `cw_list_ticket_items` |
 | Companies | `cw_search_companies`, `cw_get_company`, `cw_create_company`, `cw_update_company`, `cw_list_sites` |
 | Contacts | `cw_search_contacts`, `cw_get_contact`, `cw_create_contact`, `cw_update_contact`, `cw_add_contact_communication`, `cw_update_contact_communication`, `cw_list_contact_types`, `cw_update_contact_types` |
 | Projects | `cw_search_projects`, `cw_get_project`, `cw_create_project`, `cw_search_project_tickets`, `cw_get_project_ticket`, `cw_get_project_ticket_notes`, `cw_add_project_ticket_note` |
-| Time | `cw_search_time_entries`, `cw_get_time_entry`, `cw_create_time_entry`, `cw_update_time_entry`, `cw_delete_time_entry` |
+| Time | `cw_search_time_entries`, `cw_get_time_entry`, `cw_create_time_entry`, `cw_update_time_entry`, `cw_delete_time_entry`, `cw_list_work_types`, `cw_list_work_roles` |
 | Schedule | `cw_search_schedule_entries`, `cw_list_schedule_types`, `cw_list_schedule_statuses`, `cw_create_schedule_entry`, `cw_update_schedule_entry` |
 | Members and configurations | `cw_search_members`, `cw_get_member`, `cw_search_configurations`, `cw_get_configuration` |
 | Activities | `cw_search_activities`, `cw_get_activity`, `cw_create_activity` |
@@ -121,7 +121,7 @@ reported by the tool as `invalid_argument`.
 | Procurement | `cw_search_purchase_orders`, `cw_get_purchase_order`, `cw_get_purchase_order_items`, `cw_search_procurement_products`, `cw_get_procurement_product` |
 | Diagnostics | `cw_test_connection` |
 
-87 tools. Tool names and parameters match the previous ConnectWise Manage connector on the MSPbots
+92 tools. Tool names and parameters match the previous ConnectWise Manage connector on the MSPbots
 Agent Platform, so existing agents keep working. That compatibility is why this is one server with
 more than 20 tools instead of several smaller ones.
 

@@ -47,7 +47,9 @@ def register(mcp: FastMCP, settings: Settings) -> None:
         name="cw_create_time_entry",
         description=(
             "Create a time entry (work done) against a service ticket, project ticket, charge code or activity. "
-            "Give timeEnd or actualHours."
+            "Give timeEnd or actualHours. Set billableOption and the addTo*Flag switches to control billing and "
+            "where the notes are copied on the ticket; look up workTypeId / workRoleId with cw_list_work_types and "
+            "cw_list_work_roles."
         ),
         annotations=CREATE,
         structured_output=False,
@@ -66,6 +68,19 @@ def register(mcp: FastMCP, settings: Settings) -> None:
         internalNotes: Annotated[str | None, Field(description="Internal-only notes")] = None,
         workTypeId: Annotated[int | None, Field(description="Work type ID")] = None,
         workRoleId: Annotated[int | None, Field(description="Work role ID")] = None,
+        billableOption: Annotated[
+            Literal["Billable", "DoNotBill", "NoCharge", "NoDefault"] | None,
+            Field(description="Billing option; omit to use the work type / agreement default"),
+        ] = None,
+        addToDetailDescriptionFlag: Annotated[
+            bool | None, Field(description="Also add the notes to the ticket's detail description")
+        ] = None,
+        addToInternalAnalysisFlag: Annotated[
+            bool | None, Field(description="Also add the notes to the ticket's internal analysis")
+        ] = None,
+        addToResolutionFlag: Annotated[
+            bool | None, Field(description="Also add the notes to the ticket's resolution")
+        ] = None,
     ) -> str:
         async def handler(client: CWClient):
             payload = body(
@@ -79,6 +94,10 @@ def register(mcp: FastMCP, settings: Settings) -> None:
                 internalNotes=internalNotes,
                 workType=ref(workTypeId),
                 workRole=ref(workRoleId),
+                billableOption=billableOption,
+                addToDetailDescriptionFlag=addToDetailDescriptionFlag,
+                addToInternalAnalysisFlag=addToInternalAnalysisFlag,
+                addToResolutionFlag=addToResolutionFlag,
             )
             return clean(await client.post("/time/entries", payload))
 
