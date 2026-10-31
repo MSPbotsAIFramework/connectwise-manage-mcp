@@ -1,0 +1,68 @@
+[
+  {
+    "id": "TC1",
+    "ac": "AC1",
+    "text": "Given valid X-CW-* credential headers, when cw_list_agreement_types is called with no arguments, then the response is {items, count, page: 1, page_size: 25, has_more} sourced from GET /finance/agreements/types",
+    "type": "auto",
+    "tests": ["tests/test_handlers.py::test_list_agreement_types_returns_items"]
+  },
+  {
+    "id": "TC2",
+    "ac": "AC2",
+    "text": "Given conditions=\"inactiveFlag = false\", when cw_list_agreement_types is called, then that exact string is sent as the conditions query parameter to ConnectWise",
+    "type": "auto",
+    "tests": ["tests/test_handlers.py::test_list_agreement_types_passes_conditions"]
+  },
+  {
+    "id": "TC3",
+    "ac": "AC3",
+    "text": "Given fields=\"id, name\", when cw_list_agreement_types is called, then fields=id, name is sent to ConnectWise",
+    "type": "auto",
+    "tests": ["tests/test_handlers.py::test_list_agreement_types_passes_fields_and_orderby"]
+  },
+  {
+    "id": "TC4",
+    "ac": "AC4",
+    "text": "Given orderBy=\"name asc\", when cw_list_agreement_types is called, then orderBy=name asc is sent to ConnectWise and results are not re-sorted client-side",
+    "type": "auto",
+    "tests": ["tests/test_handlers.py::test_list_agreement_types_passes_fields_and_orderby"]
+  },
+  {
+    "id": "TC5",
+    "ac": "AC5",
+    "text": "Given a mocked page with pageSize rows, when cw_list_agreement_types is called, then has_more is true; given page/pageSize omitted, then page defaults to 1 and page_size defaults to 25",
+    "type": "auto",
+    "tests": ["tests/test_handlers.py::test_list_agreement_types_pagination"]
+  },
+  {
+    "id": "TC6",
+    "ac": "AC6",
+    "text": "Given a request missing or with a blank X-CW-* header, when any tool (including cw_list_agreement_types) is called, then the server returns 401 listing the expected headers",
+    "type": "auto",
+    "tests": [
+      "tests/test_middleware.py::test_missing_headers_is_401",
+      "tests/test_middleware.py::test_each_header_is_required",
+      "tests/test_middleware.py::test_blank_header_counts_as_missing"
+    ]
+  },
+  {
+    "id": "TC7",
+    "ac": "AC7",
+    "text": "Given tools/list, then cw_list_agreement_types is present with a schema matching the other add_search list tools, and no pre-existing tool's name or schema changed from tools_baseline.json",
+    "type": "auto",
+    "tests": ["tests/test_tools.py"]
+  },
+  {
+    "id": "TC8",
+    "ac": "AC8",
+    "text": "Given README.md after the change, then the Agreements row lists cw_list_agreement_types and the tool-count line reads 93",
+    "type": "manual",
+    "steps": [
+      "Open README.md in the repo at the commit that adds the tool",
+      "Find the Tools table's Agreements row",
+      "Find the tool-count line below the Tools table"
+    ],
+    "expect": "Agreements row includes `cw_list_agreement_types`; tool-count line reads \"93 tools\" (was 92)",
+    "result": "untested"
+  }
+]
