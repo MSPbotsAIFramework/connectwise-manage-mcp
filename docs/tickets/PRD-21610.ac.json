@@ -4,35 +4,55 @@
     "ac": "AC1",
     "text": "Given valid X-CW-* credential headers, when cw_list_agreement_types is called with no arguments, then the response is {items, count, page: 1, page_size: 25, has_more} sourced from GET /finance/agreements/types",
     "type": "auto",
-    "tests": ["tests/test_handlers.py::test_list_agreement_types_returns_items"]
+    "tests": [
+      "tests/test_handlers.py::test_list_agreement_types_returns_items"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest tests/test_handlers.py::test_list_agreement_types_returns_items -q -> 1 passed (full suite: 94/94 passed on dev/PRD-21610 @ fd542e0)"
   },
   {
     "id": "TC2",
     "ac": "AC2",
     "text": "Given conditions=\"inactiveFlag = false\", when cw_list_agreement_types is called, then that exact string is sent as the conditions query parameter to ConnectWise",
     "type": "auto",
-    "tests": ["tests/test_handlers.py::test_list_agreement_types_passes_conditions"]
+    "tests": [
+      "tests/test_handlers.py::test_list_agreement_types_passes_conditions"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest tests/test_handlers.py::test_list_agreement_types_passes_conditions -q -> 1 passed"
   },
   {
     "id": "TC3",
     "ac": "AC3",
     "text": "Given fields=\"id, name\", when cw_list_agreement_types is called, then fields=id, name is sent to ConnectWise",
     "type": "auto",
-    "tests": ["tests/test_handlers.py::test_list_agreement_types_passes_fields_and_orderby"]
+    "tests": [
+      "tests/test_handlers.py::test_list_agreement_types_passes_fields_and_orderby"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest tests/test_handlers.py::test_list_agreement_types_passes_fields_and_orderby -q -> 1 passed"
   },
   {
     "id": "TC4",
     "ac": "AC4",
     "text": "Given orderBy=\"name asc\", when cw_list_agreement_types is called, then orderBy=name asc is sent to ConnectWise and results are not re-sorted client-side",
     "type": "auto",
-    "tests": ["tests/test_handlers.py::test_list_agreement_types_passes_fields_and_orderby"]
+    "tests": [
+      "tests/test_handlers.py::test_list_agreement_types_passes_fields_and_orderby"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest tests/test_handlers.py::test_list_agreement_types_passes_fields_and_orderby -q -> 1 passed (same test asserts both fields and orderBy pass-through)"
   },
   {
     "id": "TC5",
     "ac": "AC5",
     "text": "Given a mocked page with pageSize rows, when cw_list_agreement_types is called, then has_more is true; given page/pageSize omitted, then page defaults to 1 and page_size defaults to 25",
     "type": "auto",
-    "tests": ["tests/test_handlers.py::test_list_agreement_types_pagination"]
+    "tests": [
+      "tests/test_handlers.py::test_list_agreement_types_pagination"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest tests/test_handlers.py::test_list_agreement_types_pagination -q -> 1 passed"
   },
   {
     "id": "TC6",
@@ -43,14 +63,20 @@
       "tests/test_middleware.py::test_missing_headers_is_401",
       "tests/test_middleware.py::test_each_header_is_required",
       "tests/test_middleware.py::test_blank_header_counts_as_missing"
-    ]
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest tests/test_middleware.py::test_missing_headers_is_401 tests/test_middleware.py::test_each_header_is_required tests/test_middleware.py::test_blank_header_counts_as_missing -q -> 3 passed; cross-cutting, unaffected by this change"
   },
   {
     "id": "TC7",
     "ac": "AC7",
     "text": "Given tools/list, then cw_list_agreement_types is present with a schema matching the other add_search list tools, and no pre-existing tool's name or schema changed from tools_baseline.json",
     "type": "auto",
-    "tests": ["tests/test_tools.py"]
+    "tests": [
+      "tests/test_tools.py"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest tests/test_tools.py -q -> 8 passed; live tools/list on merged code (commit fd542e0, POST /mcp tools/list with placeholder X-CW-* headers) returned 94 tools including cw_list_agreement_types with params [conditions, fields, orderBy, page, pageSize], no pre-existing tool's name/schema changed vs tests/fixtures/tools_baseline.json"
   },
   {
     "id": "TC8",
@@ -63,6 +89,7 @@
       "Find the tool-count line below the Tools table"
     ],
     "expect": "Agreements row includes `cw_list_agreement_types`; tool-count line reads \"93 tools\" (was 92)",
-    "result": "untested"
+    "result": "pass",
+    "evidence": "Read README.md on dev/PRD-21610 @ fd542e0: Agreements row (line 118) lists `cw_list_agreement_types`; tool-count line (line 124) reads \"94 tools\" (combined with PRD-21611's cw_update_configuration merged into the same tree -- PRD-21610 alone would have read 93, see Self-test note on the base-sync merge)."
   }
 ]
