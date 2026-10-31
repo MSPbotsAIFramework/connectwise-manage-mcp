@@ -111,7 +111,7 @@ reported by the tool as `invalid_argument`.
 | Projects | `cw_search_projects`, `cw_get_project`, `cw_create_project`, `cw_search_project_tickets`, `cw_get_project_ticket`, `cw_get_project_ticket_notes`, `cw_add_project_ticket_note` |
 | Time | `cw_search_time_entries`, `cw_get_time_entry`, `cw_create_time_entry`, `cw_update_time_entry`, `cw_delete_time_entry`, `cw_list_work_types`, `cw_list_work_roles` |
 | Schedule | `cw_search_schedule_entries`, `cw_list_schedule_types`, `cw_list_schedule_statuses`, `cw_create_schedule_entry`, `cw_update_schedule_entry` |
-| Members and configurations | `cw_search_members`, `cw_get_member`, `cw_search_configurations`, `cw_get_configuration` |
+| Members and configurations | `cw_search_members`, `cw_get_member`, `cw_search_configurations`, `cw_get_configuration`, `cw_update_configuration` |
 | Activities | `cw_search_activities`, `cw_get_activity`, `cw_create_activity` |
 | Catalog | `cw_search_catalog_items`, `cw_get_catalog_item`, `cw_create_catalog_item`, `cw_update_catalog_item`, `cw_list_catalog_categories`, `cw_list_catalog_subcategories`, `cw_list_manufacturers` |
 | Inventory | `cw_list_warehouses`, `cw_list_warehouse_bins`, `cw_get_inventory_on_hand`, `cw_list_adjustment_types`, `cw_create_adjustment`, `cw_add_adjustment_detail`, `cw_get_adjustment`, `cw_close_adjustment` |
@@ -121,7 +121,7 @@ reported by the tool as `invalid_argument`.
 | Procurement | `cw_search_purchase_orders`, `cw_get_purchase_order`, `cw_get_purchase_order_items`, `cw_search_procurement_products`, `cw_get_procurement_product` |
 | Diagnostics | `cw_test_connection` |
 
-92 tools. Tool names and parameters match the previous ConnectWise Manage connector on the MSPbots
+93 tools. Tool names and parameters match the previous ConnectWise Manage connector on the MSPbots
 Agent Platform, so existing agents keep working. That compatibility is why this is one server with
 more than 20 tools instead of several smaller ones.
 
