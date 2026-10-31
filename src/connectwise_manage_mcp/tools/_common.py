@@ -197,7 +197,11 @@ class PatchOp(BaseModel):
     value: Any = Field(default=None, description="New value (required for add and replace; unused for remove)")
 
 
-Operations = Annotated[list[PatchOp], Field(description="Array of JSON Patch operations", min_length=1)]
+# No min_length here (PRD-21611): a schema-level minItems=1 makes FastMCP reject an empty list with a raw
+# ToolError before any handler runs, bypassing the structured error envelope. patch_ops() below already
+# rejects an empty list with ToolInputError -> {"error": {"code": "invalid_argument"}}; that is the one
+# enforcement path, so every *_update_* tool using Operations returns a consistent envelope.
+Operations = Annotated[list[PatchOp], Field(description="Array of JSON Patch operations")]
 
 _PATH_RE = re.compile(r"^/?[A-Za-z0-9_\-]+(/[A-Za-z0-9_\-]+)*$")
 

@@ -949,6 +949,16 @@
    "operations"
   ]
  },
+ "cw_update_configuration": {
+  "params": [
+   "id",
+   "operations"
+  ],
+  "required": [
+   "id",
+   "operations"
+  ]
+ },
  "cw_update_contact": {
   "params": [
    "id",

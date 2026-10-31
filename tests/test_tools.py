@@ -56,6 +56,7 @@ ADDED = {
     "cw_list_work_types",
     "cw_list_work_roles",
     "cw_list_agreement_types",
+    "cw_update_configuration",
 }
 
 

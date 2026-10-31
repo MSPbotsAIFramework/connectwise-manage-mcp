@@ -1,0 +1,75 @@
+[
+  {
+    "id": "TC-CWM-001",
+    "ac": "AC1",
+    "text": "Given a configuration item id and a JSON Patch operation replace /name, when cw_update_configuration is called, then the connector sends exactly that operation as the PATCH body to /company/configurations/{id} and returns the updated configuration object.",
+    "type": "auto",
+    "tests": ["tests/test_handlers.py::test_update_configuration_sends_json_patch"],
+    "result": "pass",
+    "evidence": "uv run pytest -q tests/test_handlers.py -k update_configuration -v @ 2f20f08: tests/test_handlers.py::test_update_configuration_sends_json_patch PASSED (5 passed, 55 deselected in 0.73s)."
+  },
+  {
+    "id": "TC-CWM-002",
+    "ac": "AC2",
+    "text": "Given operations that replace status/id and activeFlag together, when cw_update_configuration is called, then both operations are sent in a single PATCH request and both changes appear in the returned object.",
+    "type": "auto",
+    "tests": ["tests/test_handlers.py::test_update_configuration_combines_status_and_active_flag"],
+    "result": "pass",
+    "evidence": "uv run pytest -q tests/test_handlers.py -k update_configuration -v @ 2f20f08: tests/test_handlers.py::test_update_configuration_combines_status_and_active_flag PASSED (5 passed, 55 deselected in 0.73s)."
+  },
+  {
+    "id": "TC-CWM-003",
+    "ac": "AC3",
+    "text": "Given an operations array containing an add or replace operation with no value, when cw_update_configuration is called, then it returns {\"error\": {\"code\": \"invalid_argument\"}} and makes no HTTP call to ConnectWise.",
+    "type": "auto",
+    "tests": ["tests/test_handlers.py::test_update_configuration_without_value_is_rejected"],
+    "result": "pass",
+    "evidence": "uv run pytest -q tests/test_handlers.py -k update_configuration -v @ 2f20f08: tests/test_handlers.py::test_update_configuration_without_value_is_rejected PASSED (5 passed, 55 deselected in 0.73s)."
+  },
+  {
+    "id": "TC-CWM-004",
+    "ac": "AC4",
+    "text": "Given an empty operations array, when cw_update_configuration is called, then it returns invalid_argument and makes no HTTP call.",
+    "type": "auto",
+    "tests": ["tests/test_handlers.py::test_update_configuration_rejects_empty_operations"],
+    "result": "pass",
+    "evidence": "uv run pytest -q tests/test_handlers.py -k update_configuration -v @ 2f20f08: tests/test_handlers.py::test_update_configuration_rejects_empty_operations PASSED (5 passed, 55 deselected in 0.73s). Before the _common.py fix in the same commit, this call raised a raw mcp.server.fastmcp.exceptions.ToolError (\"List should have at least 1 item ... too_short\") instead of the structured envelope, because Operations declared schema-level min_length=1 -- reproduced live against cw_update_ticket too (same shared type) before the fix, see Self-test section."
+  },
+  {
+    "id": "TC-CWM-005",
+    "ac": "AC5",
+    "text": "Given the mocked ConnectWise API returns 404 for the PATCH request, when cw_update_configuration is called, then the tool's response envelope has code not_found.",
+    "type": "auto",
+    "tests": ["tests/test_handlers.py::test_update_configuration_maps_not_found"],
+    "result": "pass",
+    "evidence": "uv run pytest -q tests/test_handlers.py -k update_configuration -v @ 2f20f08: tests/test_handlers.py::test_update_configuration_maps_not_found PASSED (5 passed, 55 deselected in 0.73s)."
+  },
+  {
+    "id": "TC-CWM-006",
+    "ac": "AC6",
+    "text": "After cw_update_configuration is added, tools/list still returns all 92 previously-existing tools unchanged (names, required/optional parameters, types) plus cw_update_configuration as a 93rd tool.",
+    "type": "auto",
+    "tests": [
+      "tests/test_tools.py::test_tool_names_match_baseline",
+      "tests/test_tools.py::test_parameters_are_backward_compatible"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -q tests/test_tools.py -v @ 2f20f08: all 8 tests passed (test_tool_names_match_baseline, test_parameters_are_backward_compatible, test_nested_item_fields_are_kept, test_snapshot incl.). tests/fixtures/tools_snapshot.json regenerated (UPDATE_SNAPSHOT=1). Live confirmation: POST /mcp initialize+tools/list with placeholder X-CW-* headers against `uv run connectwise-manage-mcp` on 127.0.0.1:8080 returned 93 tools incl. cw_update_configuration with the designed description and PatchOp/Operations input schema (/tmp/tools_list.json capture, 2026-10-31). tests/test_middleware.py::test_placeholder_values_pass_initialize_and_tools_list's hardcoded count updated from 92 to 93 and passes."
+  },
+  {
+    "id": "TC-CWM-007",
+    "ac": "AC7",
+    "text": "Against a live ConnectWise Manage sandbox, calling cw_update_configuration to rename a test configuration item and set it Inactive, then cw_get_configuration confirms both fields changed.",
+    "type": "manual",
+    "steps": [
+      "Obtain a ConnectWise Manage sandbox/test account and its X-CW-* credential headers",
+      "Pick or create a disposable configuration item in that account and note its id",
+      "Call cw_update_configuration with operations=[{\"op\":\"replace\",\"path\":\"name\",\"value\":\"<new name>\"},{\"op\":\"replace\",\"path\":\"activeFlag\",\"value\":false}]",
+      "Call cw_get_configuration with the same id"
+    ],
+    "expect": "cw_update_configuration returns the updated object with the new name and activeFlag=false; the follow-up cw_get_configuration call shows the same two fields with the same values",
+    "result": "untested",
+    "notes": "[INCOMPLETE] Not run: needs a real vendor account. No ConnectWise Manage test/sandbox account was available at design or dev time. Per the vendor-mcp rule, a missing vendor test account does not block this ticket. AC1-AC6 are covered by respx-mocked tests (TC-CWM-001..006, all pass); this manual case is listed in the Self-test report as not run, not as a pass.",
+    "source": "design"
+  }
+]

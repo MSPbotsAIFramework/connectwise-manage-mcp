@@ -12,6 +12,8 @@ from ..config import Settings
 from ._common import (
     CREATE,
     READ,
+    UPDATE,
+    Operations,
     Page,
     PageSize,
     ToolInputError,
@@ -22,6 +24,7 @@ from ._common import (
     join_conditions,
     list_result,
     paging,
+    patch_ops,
     ref,
     run,
     seg,
@@ -87,6 +90,25 @@ def register(mcp: FastMCP, settings: Settings) -> None:
         path="/company/configurations/{id}",
         id_help="Configuration item ID",
     )
+
+    @mcp.tool(
+        name="cw_update_configuration",
+        description=(
+            "Update an existing configuration item (asset/CI) using JSON Patch operations (paths such as "
+            "'name', 'status/id', 'activeFlag', 'ram', 'ipAddress')."
+        ),
+        annotations=UPDATE,
+        structured_output=False,
+    )
+    async def cw_update_configuration(
+        id: Annotated[int, Field(description="Configuration item ID")],
+        operations: Operations,
+    ) -> str:
+        async def handler(client: CWClient):
+            ops, replace_only = patch_ops(operations)
+            return clean(await client.patch(f"/company/configurations/{seg(id)}", ops, idempotent=replace_only))
+
+        return await run(settings, handler)
 
     # Service board setup
     add_search(

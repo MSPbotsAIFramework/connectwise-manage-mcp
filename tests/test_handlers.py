@@ -219,6 +219,66 @@ async def test_ticket_configurations_continue_after_failure(call):
     assert out["failed"] == 1
 
 
+# ---- configurations ----------------------------------------------------------------------
+
+
+@respx.mock
+async def test_update_configuration_sends_json_patch(call):
+    route = respx.patch(f"{BASE}/company/configurations/12345").mock(
+        return_value=httpx.Response(200, json={"id": 12345, "name": "SRV-EMD-01 - Inactive"})
+    )
+    out = await call(
+        "cw_update_configuration",
+        id=12345,
+        operations=[{"op": "replace", "path": "name", "value": "SRV-EMD-01 - Inactive"}],
+    )
+    assert sent(route) == [{"op": "replace", "path": "name", "value": "SRV-EMD-01 - Inactive"}]
+    assert out == {"id": 12345, "name": "SRV-EMD-01 - Inactive"}
+
+
+@respx.mock
+async def test_update_configuration_combines_status_and_active_flag(call):
+    route = respx.patch(f"{BASE}/company/configurations/12345").mock(
+        return_value=httpx.Response(200, json={"id": 12345, "status": {"id": 7}, "activeFlag": False})
+    )
+    out = await call(
+        "cw_update_configuration",
+        id=12345,
+        operations=[
+            {"op": "replace", "path": "status/id", "value": 7},
+            {"op": "replace", "path": "activeFlag", "value": False},
+        ],
+    )
+    assert sent(route) == [
+        {"op": "replace", "path": "status/id", "value": 7},
+        {"op": "replace", "path": "activeFlag", "value": False},
+    ]
+    assert out["status"] == {"id": 7} and out["activeFlag"] is False
+
+
+async def test_update_configuration_without_value_is_rejected(call):
+    out = await call("cw_update_configuration", id=12345, operations=[{"op": "add", "path": "name"}])
+    assert out["error"]["code"] == "invalid_argument"
+
+
+async def test_update_configuration_rejects_empty_operations(call):
+    out = await call("cw_update_configuration", id=12345, operations=[])
+    assert out["error"]["code"] == "invalid_argument"
+
+
+@respx.mock
+async def test_update_configuration_maps_not_found(call):
+    respx.patch(f"{BASE}/company/configurations/12345").mock(
+        return_value=httpx.Response(404, json={"message": "not found"})
+    )
+    out = await call(
+        "cw_update_configuration",
+        id=12345,
+        operations=[{"op": "replace", "path": "name", "value": "x"}],
+    )
+    assert out["error"]["code"] == "not_found"
+
+
 # ---- companies ----------------------------------------------------------------------
 
 
