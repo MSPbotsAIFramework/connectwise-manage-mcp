@@ -624,6 +624,43 @@ async def test_create_agreement_addition(call):
 
 
 @respx.mock
+async def test_list_agreement_types_returns_items(call):
+    respx.get(f"{BASE}/finance/agreements/types").mock(
+        return_value=httpx.Response(200, json=[{"id": 1, "name": "Gold"}, {"id": 2, "name": "Silver"}])
+    )
+    out = await call("cw_list_agreement_types")
+    assert out["items"] == [{"id": 1, "name": "Gold"}, {"id": 2, "name": "Silver"}]
+    assert out["page"] == 1 and out["page_size"] == 25
+
+
+@respx.mock
+async def test_list_agreement_types_passes_conditions(call):
+    route = respx.get(f"{BASE}/finance/agreements/types").mock(return_value=httpx.Response(200, json=[]))
+    await call("cw_list_agreement_types", conditions="inactiveFlag = false")
+    assert params(route)["conditions"] == "inactiveFlag = false"
+
+
+@respx.mock
+async def test_list_agreement_types_passes_fields_and_orderby(call):
+    route = respx.get(f"{BASE}/finance/agreements/types").mock(return_value=httpx.Response(200, json=[]))
+    await call("cw_list_agreement_types", fields="id, name", orderBy="name asc")
+    assert params(route)["fields"] == "id, name"
+    assert params(route)["orderBy"] == "name asc"
+
+
+@respx.mock
+async def test_list_agreement_types_pagination(call):
+    route = respx.get(f"{BASE}/finance/agreements/types").mock(
+        return_value=httpx.Response(200, json=[{"id": 1, "name": "Gold"}, {"id": 2, "name": "Silver"}])
+    )
+    out = await call("cw_list_agreement_types", pageSize=2)
+    assert params(route)["page"] == "1" and params(route)["pageSize"] == "2"
+    assert out["has_more"] is True
+    out_default = await call("cw_list_agreement_types")
+    assert out_default["page"] == 1 and out_default["page_size"] == 25
+
+
+@respx.mock
 async def test_opportunity_forecast_items(call):
     respx.get(f"{BASE}/sales/opportunities/4/forecast").mock(
         return_value=httpx.Response(200, json={"id": 4, "forecastItems": [{"id": 1}, {"id": 2}]})

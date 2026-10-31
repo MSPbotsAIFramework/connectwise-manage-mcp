@@ -115,13 +115,13 @@ reported by the tool as `invalid_argument`.
 | Activities | `cw_search_activities`, `cw_get_activity`, `cw_create_activity` |
 | Catalog | `cw_search_catalog_items`, `cw_get_catalog_item`, `cw_create_catalog_item`, `cw_update_catalog_item`, `cw_list_catalog_categories`, `cw_list_catalog_subcategories`, `cw_list_manufacturers` |
 | Inventory | `cw_list_warehouses`, `cw_list_warehouse_bins`, `cw_get_inventory_on_hand`, `cw_list_adjustment_types`, `cw_create_adjustment`, `cw_add_adjustment_detail`, `cw_get_adjustment`, `cw_close_adjustment` |
-| Agreements | `cw_search_agreements`, `cw_get_agreement`, `cw_get_agreement_additions`, `cw_create_agreement_addition`, `cw_update_agreement_addition`, `cw_search_agreement_recaps`, `cw_get_agreement_recap` |
+| Agreements | `cw_search_agreements`, `cw_get_agreement`, `cw_list_agreement_types`, `cw_get_agreement_additions`, `cw_create_agreement_addition`, `cw_update_agreement_addition`, `cw_search_agreement_recaps`, `cw_get_agreement_recap` |
 | Invoices | `cw_search_invoices`, `cw_get_invoice`, `cw_update_invoice` |
 | Sales | `cw_search_opportunities`, `cw_get_opportunity`, `cw_search_opportunity_forecasts`, `cw_search_opportunity_notes`, `cw_search_sales_stages`, `cw_search_sales_orders`, `cw_get_sales_order`, `cw_get_sales_order_products` |
 | Procurement | `cw_search_purchase_orders`, `cw_get_purchase_order`, `cw_get_purchase_order_items`, `cw_search_procurement_products`, `cw_get_procurement_product` |
 | Diagnostics | `cw_test_connection` |
 
-93 tools. Tool names and parameters match the previous ConnectWise Manage connector on the MSPbots
+94 tools. Tool names and parameters match the previous ConnectWise Manage connector on the MSPbots
 Agent Platform, so existing agents keep working. That compatibility is why this is one server with
 more than 20 tools instead of several smaller ones.
 

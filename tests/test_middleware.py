@@ -56,7 +56,7 @@ def test_placeholder_values_pass_initialize_and_tools_list(client):
     assert client.post("/mcp", json=INIT, headers=h).status_code == 200
     r = client.post("/mcp", json=LIST, headers=h)
     assert r.status_code == 200
-    assert len(r.json()["result"]["tools"]) == 93
+    assert len(r.json()["result"]["tools"]) == 94
 
 
 def test_placeholder_values_give_tool_error_not_http_error(client):
