@@ -83,6 +83,13 @@ def register(mcp: FastMCP, settings: Settings) -> None:
         path="/finance/agreements/{id}",
         id_help="Agreement ID",
     )
+    add_search(
+        mcp,
+        settings,
+        name="cw_list_agreement_types",
+        description="List agreement (contract) types in ConnectWise Manage, e.g. the tiers used on finance agreements.",
+        path="/finance/agreements/types",
+    )
 
     @mcp.tool(
         name="cw_get_agreement_additions",

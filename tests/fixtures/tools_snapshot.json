@@ -513,6 +513,16 @@
   ],
   "required": []
  },
+ "cw_list_agreement_types": {
+  "params": [
+   "conditions",
+   "fields",
+   "orderBy",
+   "page",
+   "pageSize"
+  ],
+  "required": []
+ },
  "cw_list_boards": {
   "params": [
    "conditions",
