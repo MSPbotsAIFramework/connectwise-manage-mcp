@@ -764,3 +764,28 @@ async def test_create_ticket_sets_item(call):
     await call("cw_create_ticket", **{"summary": "Offboard", "boardId": 7, "typeId": 3, "subTypeId": 5, "itemId": 9})
     payload = sent(route)
     assert payload["type"] == {"id": 3} and payload["subType"] == {"id": 5} and payload["item"] == {"id": 9}
+
+
+@pytest.mark.parametrize("email_flag", ["emailContactFlag", "emailResourceFlag", "emailCcFlag"])
+@respx.mock
+async def test_add_internal_note_omits_disabled_email_fields_on_strict_api(call, email_flag):
+    def strict_service_note(request):
+        payload = json.loads(request.content)
+        if email_flag in payload:
+            return httpx.Response(400, json={"message": "Unsupported ServiceNote property"})
+        return httpx.Response(201, json={"id": 12, "ticketId": 5})
+
+    route = respx.post(f"{BASE}/service/tickets/5/notes").mock(side_effect=strict_service_note)
+    result = await call(
+        "cw_add_ticket_note",
+        id=5,
+        text="Synthetic internal regression note",
+        internalAnalysisFlag=True,
+        processNotifications=False,
+        **{email_flag: False},
+    )
+    assert result.get("id") == 12, result
+    assert route.call_count == 1
+    assert sent(route)["processNotifications"] is False
+    assert sent(route)["internalAnalysisFlag"] is True
+    assert email_flag not in sent(route)

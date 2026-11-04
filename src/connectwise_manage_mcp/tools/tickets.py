@@ -246,9 +246,9 @@ def register(mcp: FastMCP, settings: Settings) -> None:
             payload.update(
                 body(
                     customerUpdatedFlag=customerUpdatedFlag,
-                    emailContactFlag=emailContactFlag,
-                    emailResourceFlag=emailResourceFlag,
-                    emailCcFlag=emailCcFlag,
+                    emailContactFlag=True if emailContactFlag else None,
+                    emailResourceFlag=True if emailResourceFlag else None,
+                    emailCcFlag=True if emailCcFlag else None,
                     emailCc=emailCc,
                 )
             )
